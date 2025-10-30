@@ -10,7 +10,6 @@ struct process
     int tat;
 }pro[100];
 int n;
-
 void input()
 {
     for(int i=0;i<n;i++)
@@ -23,7 +22,6 @@ void input()
         scanf("%d",&pro[i].bt);  
     }
 }
-
 void sort()
 {
     for(int i=0;i<n-1;i++){
@@ -46,7 +44,12 @@ void showProcess(){
 void calCT(){
     pro[0].ct=pro[0].at+pro[0].bt;
     for(int i=1;i<n;i++){
-        pro[i].ct=pro[i-1].ct+pro[i].bt;
+        if(pro[i].at>pro[i-1].ct){
+            pro[i].ct=pro[i].at+pro[i].bt;
+        }
+        else{
+            pro[i].ct=pro[i-1].ct+pro[i].bt;
+        }
     }
 }
 void calTAT(){

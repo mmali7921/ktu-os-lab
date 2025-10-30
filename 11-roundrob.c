@@ -19,8 +19,6 @@ void input()
     {
         printf("enter the process id\n");
         scanf("%d",&pro[i].pid);
-        printf("enter the timequantum id\n");
-        scanf("%d",&tq);
         printf("enter the arrival time\n");
         scanf("%d",&pro[i].at);
         printf("enter the burst time\n");
@@ -30,13 +28,15 @@ void input()
         pro[i].wt=0;
         pro[i].tat=0;
     }
+    printf("enter the timequantum id\n");
+    scanf("%d",&tq);
 }
 
 
 void showProcess(){
     printf("\npid\tbt\tat\n");
     for(int i=0;i<n;i++){
-        printf("%d\t%d\t%d\n",pro[i].pid,pro[i].at,pro[i].bt);
+        printf("%d\t%d\t%d\n",pro[i].pid,pro[i].bt,pro[i].at);
 
     }
 }
@@ -45,7 +45,7 @@ void calCT(){
     while(done<n){
         for(int i=0;i<n;i++){
             if(pro[i].rem_bt>0 && pro[i].at<=time){
-                if(pro.[i].rem_bt>tq){
+                if(pro[i].rem_bt>tq){
                     time+=tq;
                     pro[i].rem_bt-=tq;
                 }
@@ -75,13 +75,13 @@ void calWT(){
     
 }
 void calAvg(){
-    float avgtat,avgwt;
+    float avgtat=0,avgwt=0;
     for ( int i = 0; i < n; i++)
     {
        avgtat+=pro[i].tat;
        avgwt+=pro[i].wt;
     }
-    printf("avgwt=%f/n avgtat=%f",avgwt/n,avgtat/n);
+    printf("avgwt=%f\navgtat=%f",avgwt/n,avgtat/n);
 }
 int main(){
     printf("enter the number of processes\n");

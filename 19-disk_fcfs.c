@@ -20,4 +20,4 @@ int main(){
     printf("\nTotal Head Movement=%d",ThM);
     printf("\n");
 
-}
+} 

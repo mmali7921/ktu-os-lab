@@ -79,13 +79,13 @@ void calWT(){
     
 }
 void calAvg(){
-    float avgtat,avgwt;
+    float avgtat=0,avgwt=0;
     for ( int i = 0; i < n; i++)
     {
        avgtat+=pro[i].tat;
        avgwt+=pro[i].wt;
     }
-    printf("avgwt=%f/n avgtat=%f",avgwt/n,avgtat/n);
+    printf("avgwt=%f\navgtat=%f",avgwt/n,avgtat/n);
 }
 int main(){
     printf("enter the number of processes\n");
