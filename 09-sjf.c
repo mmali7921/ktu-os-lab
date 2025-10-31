@@ -24,43 +24,59 @@ void input()
     }
 }
 
+
+void showProcess(){
+    printf("PID\tAT\tBT\tCT\tTAT\tWT\n");
+    for(int i=0;i<n;i++){
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n",pro[i].pid,pro[i].at,pro[i].bt,pro[i].ct,pro[i].tat,pro[i].wt);
+    }
+}
 void sort()
 {
     for(int i=0;i<n-1;i++){
         for(int j=0;j<n-i-1;j++){
-            if(pro[j].at>pro[j+1].at || (pro[j].at==pro[j+1].at && pro[j].bt>pro[j+1].bt)){
+            if(pro[j].at>pro[j+1].at){
                 struct process temp=pro[j];
                 pro[j]=pro[j+1];
                 pro[j+1]=temp;
             }
         }
-    
     }
 }
-void showProcess(){
-    printf("\npid\tbt\tat\n");
-    for(int i=0;i<n;i++){
-        printf("%d\t%d\t%d\n",pro[i].pid,pro[i].at,pro[i].bt);
+void calCT() {
+    int completed = 0, time = 0, idx;
+    int done[100] = {0};
 
-    }
-}
-void calCT(){
-    int time=0;
-    pro[0].ct=pro[0].at+pro[0].bt;
-    time=pro[0].ct;
+    while (completed != n) {
+        int minbt = 9999;
+        idx = -1;
 
-    for(int i=1;i<n;i++){
-
-        if(pro[i].at<time){
-            pro[i].ct=time+pro[i].bt;
-            time=pro[i].ct;
+        // Find process with minimum burst time among arrived + not done
+        for (int i = 0; i < n; i++) {
+            if (pro[i].at <= time && done[i] == 0) {
+                if (pro[i].bt < minbt) {
+                    minbt = pro[i].bt;
+                    idx = i;
+                }
+                // If same burst time, choose earlier arrival
+                else if (pro[i].bt == minbt && idx != -1 && pro[i].at < pro[idx].at) {
+                    idx = i;
+                }
+            }
         }
-        else{
-            pro[i].ct=pro[i].at+pro[i].bt;
-            time=pro[i].ct;
+
+        // If no process has arrived yet
+        if (idx == -1) {
+            time++;
+        } else {
+            pro[idx].ct = time + pro[idx].bt;
+            time = pro[idx].ct;
+            done[idx] = 1;
+            completed++;
         }
     }
 }
+
 void calTAT(){
     for ( int i = 0; i < n; i++)
     {
@@ -89,11 +105,12 @@ int main(){
     scanf("%d",&n);
 
     input();
+
     sort();
-    showProcess();
     calCT();
     calTAT();
     calWT();
+    showProcess();
     calAvg();
 
     return 0;

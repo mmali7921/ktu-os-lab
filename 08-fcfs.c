@@ -9,7 +9,9 @@ struct process
     int wt;
     int tat;
 }pro[100];
+
 int n;
+
 void input()
 {
     for(int i=0;i<n;i++)
@@ -34,13 +36,15 @@ void sort()
         }
     }
 }
+
 void showProcess(){
-    printf("\npid\tbt\tat\n");
+    printf("\npid\tat\tbt\n");
     for(int i=0;i<n;i++){
         printf("%d\t%d\t%d\n",pro[i].pid,pro[i].at,pro[i].bt);
 
     }
 }
+
 void calCT(){
     pro[0].ct=pro[0].at+pro[0].bt;
     for(int i=1;i<n;i++){
@@ -52,6 +56,7 @@ void calCT(){
         }
     }
 }
+
 void calTAT(){
     for ( int i = 0; i < n; i++)
     {
@@ -59,6 +64,7 @@ void calTAT(){
     }
     
 }
+
 void calWT(){
     for ( int i = 0; i < n; i++)
     {
@@ -66,15 +72,17 @@ void calWT(){
     }
     
 }
+
 void calAvg(){
-    float avgtat,avgwt;
+    float avgtat=0,avgwt=0;
     for ( int i = 0; i < n; i++)
     {
        avgtat+=pro[i].tat;
        avgwt+=pro[i].wt;
     }
-    printf("avgwt=%f/n avgtat=%f",avgwt/n,avgtat/n);
+    printf("avgwt=%f avgtat=%f",avgwt/n,avgtat/n);
 }
+
 int main(){
     printf("enter the number of processes\n");
     scanf("%d",&n);
